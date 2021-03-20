@@ -1,5 +1,4 @@
 import requests
-import re
 from bs4 import BeautifulSoup
 import pandas as pd
 
@@ -52,22 +51,9 @@ physics_modules = physics_modules.drop(index=[0])
 physics_modules['Descriptors'] = physics_modules.apply(
     lambda row: get_descriptor(row['Links']), axis=1)
 physics_modules['Pre-requisites'] = physics_modules.apply(
-    lambda row: get_pre_reqs(row['Links']), axis=1)
-# descriptors = []
-# for row in physics_modules:
-#     get_descriptor(physics_modules['Links'])
+    lambda row: get_pre_reqs(row['Links'])[0], axis=1)
+physics_modules['Co-requisites'] = physics_modules.apply(
+    lambda row: get_pre_reqs(row['Links'])[1], axis=1)
 
-
-# year1 = []
-# year2 = []
-# year3 = []
-# for row in physics_modules['Module_Name']:
-#     if row.startswith('PHY1'):
-#         year1.append(row)
-#     elif row.startswith('PHY2'):
-#         year2.append(row)
-#     elif row.startswith('PHY3'):
-#         year3.append(row)
-
-
-print(physics_modules.head())
+# Export scraped data to a csv file
+physics_modules.to_csv('physics.csv')
