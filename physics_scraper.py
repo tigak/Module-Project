@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+#URL for physics modules
 PHYSICS = 'https://newton.ex.ac.uk/handbook/modules/'
 
 page = requests.get(PHYSICS).text
